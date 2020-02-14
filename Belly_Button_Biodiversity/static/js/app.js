@@ -6,18 +6,18 @@ function DrawBargraph(selectedSampleID)
     d3.json("samples.json").then((data) => {
 
         var samples = data.samples;
-        console.log("All Samples: ", samples);
+        // console.log("All Samples: ", samples);
 
         // filter all of the sample ID objects to find the one that matches the selected Sample ID
         
         var resultArray = samples.filter(sampleObj => sampleObj.id == selectedSampleID);
-        console.log("resultArray for selectedSampleID: ", resultArray);
+        // console.log("resultArray for selectedSampleID: ", resultArray);
 
         var result = resultArray[0];
-        console.log(result);
+        // console.log(result);
 
         var otu_ids = result.otu_ids;
-        console.log("otu_ids: ", otu_ids);
+        // console.log("otu_ids: ", otu_ids);
 
         var otu_labels = result.otu_labels;
         var sample_values = result.sample_values;
@@ -50,9 +50,40 @@ function DrawBubbleChart(sampleID)
 }
 
 
-function ShowMetadata(sampleID)
+function ShowMetadata(selectedSampleID)
 {
-    console.log("ShowMetadata: sample = ", sampleID);
+    console.log("ShowMetadata: sample = ", selectedSampleID);
+    
+    d3.json("samples.json").then((data) => {
+
+        var metadata = data.metadata;
+        // console.log("All Metadata: ", metadata);
+
+        var resultArray = metadata.filter(sampleObj => sampleObj.id == selectedSampleID);
+        console.log("Metadata result for selected ID: ", resultArray);
+        result = resultArray[0];
+
+        var id = result.id;
+        var ethnicity = result.ethnicity;
+        console.log(ethnicity);
+        var gender = result.gender;
+        var age = result.age;
+        var location = result.location;
+        var bbtype = result.bbtype;
+        var washfreq = result.wfreq;
+
+        var tbody = d3.select("#sample-metadata");
+        // var tbody = table.select("panel-body");
+        var trow;
+        trow = tbody.append("tr");
+        trow.append("tr").text(id);
+        trow.append("tr").text(ethnicity);
+        trow.append("tr").text(gender);
+        trow.append("tr").text(age);
+        trow.append("tr").text(location);
+        trow.append("tr").text(bbtype);
+        trow.append("tr").text(washfreq);
+    });
 }
 
 
