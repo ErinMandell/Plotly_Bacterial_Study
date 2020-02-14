@@ -76,13 +76,13 @@ function ShowMetadata(selectedSampleID)
         // var tbody = table.select("panel-body");
         var trow;
         trow = tbody.append("tr");
-        trow.append("tr").text(id);
-        trow.append("tr").text(ethnicity);
-        trow.append("tr").text(gender);
-        trow.append("tr").text(age);
-        trow.append("tr").text(location);
-        trow.append("tr").text(bbtype);
-        trow.append("tr").text(washfreq);
+        trow.append("tr").text(`Subject ID:  ${id}`);
+        trow.append("tr").text(`Ethnicity:  ${ethnicity}`);
+        trow.append("tr").text(`Gender:  ${gender}`);
+        trow.append("tr").text(`Age:  ${age}`);
+        trow.append("tr").text(`Location:  ${location}`);
+        trow.append("tr").text(`Belly Button Type:  ${bbtype}`);
+        trow.append("tr").text(`Wash Frequency / Wk:  ${washfreq}`);
     });
 }
 
