@@ -25,6 +25,7 @@ function DrawBubbleChart(selectedSampleID)
         var trace = {
             x: otu_ids,
             y: sample_values,
+            text: otu_labels,
             // text: sample_values,
             mode: 'markers',
             marker: {
