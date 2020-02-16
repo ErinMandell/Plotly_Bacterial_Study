@@ -1,54 +1,3 @@
-
-// function DrawBubbleChart(selectedSampleID)
-// {
-//     console.log("DrawBubbleChart: sample =  ", selectedSampleID);
-
-//     d3.json("samples.json").then((data) => {
-
-//         var samples = data.samples;
-//         var resultArray = samples.filter(sampleObj => sampleObj.id == selectedSampleID);
-//         var result = resultArray[0];
-
-//         var otu_ids = result.otu_ids;
-//         var otu_labels = result.otu_labels;
-//         var sample_values = result.sample_values;
-
-
-
-//         var bubbleTrace = {
-//             x: otu_ids,
-//             y: sample_values,
-//             text: otu_labels,
-//             mode: 'markers',
-//             marker: {
-//                 color: otu_ids, 
-//                 opacity: .5,
-//                 size: sample_values
-//             }
-//         };
-    
-//         var bubbleData = [bubbleTrace];
-
-//         var bubbleLayout = {
-//             title: 'All Bacteria Samples, by ID',
-//             xaxis: {
-//                 title: 'OTU ID'
-//             },
-//             yaxis: {
-//                 title: 'Bacteria Count'
-//             },
-//             showlegend: false,
-//             height: 600,
-//             width: 1200
-//         };
-
-//         Plotly.newPlot('bubble', bubbleData, bubbleLayout);
-//     });
-// }
-
-
-
-
 // **************************************************************************
 // *****   Define function to Show the Metadata for the selected Sample ID
 // **************************************************************************
@@ -57,12 +6,11 @@ function ShowMetadata(selectedSampleID)
 {
     console.log("ShowMetadata: sample = ", selectedSampleID);
     
-    d3.json("samples.json").then((data) => {
+    d3.json("data/samples.json").then((data) => {
 
         d3.select("#sample-metadata").selectAll("tr").remove();
 
         var metadata = data.metadata;
-        // console.log("All Metadata: ", metadata);
 
         var resultArray = metadata.filter(sampleObj => sampleObj.id == selectedSampleID);
         console.log("Metadata result for selected ID: ", resultArray);
@@ -90,6 +38,7 @@ function ShowMetadata(selectedSampleID)
 }
 
 
+
 // ****************************************************************************
 // *******        Define Function to fetch data, assign variables,       ******
 // *******   and draw Bar + Bubble Charts illustrating bacteria counts   ******
@@ -99,7 +48,7 @@ function DrawBarBubble(selectedSampleID)
 {
     console.log("DrawBargraph: sample = ", selectedSampleID);
 
-    d3.json("samples.json").then((data) => {
+    d3.json("data/samples.json").then((data) => {
 
         // ******************************************************************
         // Fetch data variables for the Sample ID that that the user selected
@@ -173,12 +122,16 @@ function DrawBarBubble(selectedSampleID)
 
 
 
+// *******************************************************************
+// *****       Create function to draw Gauge Chart             *******
+// *****         to display washing frequency                  *******
+// *******************************************************************
 
 function DrawGaugeChart(selectedSampleID)
 {
     console.log("DrawGaugeChart: sample =  ", selectedSampleID);
 
-    d3.json("samples.json").then((data) => {
+    d3.json("data/samples.json").then((data) => {
         var metadata = data.metadata;
         var resultArray = metadata.filter(sampleObj => sampleObj.id == selectedSampleID);
         result = resultArray[0];
@@ -207,8 +160,9 @@ function DrawGaugeChart(selectedSampleID)
 }
 
 
+
 // *************************************************************************
-// ****    Create 'optionChanged' function                       ***********
+// ****             Create 'optionChanged' function              ***********
 // ****     - This function is called from the event listener    ***********
 // ****       attached to the dropdown selector in index.html    ***********
 // ****   - 'newSampleID' is the ID that the user has selected   ***********
@@ -227,7 +181,7 @@ function optionChanged(newSampleID)
 
 
 // **********************************************************************
-// ******  Initialize screen with default Charts + information      *****
+// ******    Initialize screen with default Charts + information    *****
 // ******   and populate dropdown selector with list of Sample IDs  *****
 // ********************************************************************** 
 
@@ -238,7 +192,7 @@ function Init() {
   
     var selector = d3.select("#selDataset");
 
-    d3.json("samples.json").then((data) => {
+    d3.json("data/samples.json").then((data) => {
         var sampleNames = data.names;
 
         sampleNames.forEach((sampleID) => {
