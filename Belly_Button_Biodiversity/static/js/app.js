@@ -178,11 +178,32 @@ function DrawGaugeChart(selectedSampleID)
 {
     console.log("DrawGaugeChart: sample =  ", selectedSampleID);
 
+    d3.json("samples.json").then((data) => {
+        var metadata = data.metadata;
+        var resultArray = metadata.filter(sampleObj => sampleObj.id == selectedSampleID);
+        result = resultArray[0];
+        var washfreq = result.wfreq;
 
+        var data = [
+            {
+                domain: {x: [0, 1], y: [0, 1] },
+                value: washfreq,
+                gauge: {axis: {range: [0, 10]}, bar: {color: "darkblue"}},
+                title: { text: "Belly Button Washing Frequency<br><sub>Scrubs Per Week</sub>" },
+                subtitle: {text: "Scrubs Per Week"},
+                type: 'indicator',
+                mode: 'gauge+number'
+            }
+        ];
 
-    
+        var layout = { 
+            width: 400, 
+            height: 300, 
+            margin: { l: 5, r: 5},
+         };
 
-
+        Plotly.newPlot('gauge', data, layout);
+    });
 }
 
 
